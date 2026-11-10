@@ -1,0 +1,36 @@
+
+/* Short, event-driven feedback. No continuous animation loops. */
+:root{--motion-ease:cubic-bezier(.22,.8,.25,1)}
+button,a,input,select{-webkit-tap-highlight-color:transparent;touch-action:manipulation}
+button:focus-visible,a:focus-visible,select:focus-visible,input:focus-visible{outline:3px solid #7c9b48;outline-offset:4px}
+.value{font-variant-numeric:tabular-nums}
+.metric{position:relative}
+.metric-history{position:absolute;right:10px;top:10px;width:44px;height:44px;min-height:44px;padding:0;border:0;background:transparent;color:#627b4d;border-radius:50%;display:grid;place-items:center}
+.metric-history:hover{background:#dfeacb}
+.mode-help{display:block;color:#586d4c;font-size:11px;line-height:1.6;margin-top:12px;min-height:36px}
+#pump-timer{display:block;min-height:20px;font-variant-numeric:tabular-nums}
+.device[data-on="true"]{border-color:#a8c18c}
+.device[data-on="true"] .device-icon{background:#dcecc5;color:#3d6a29}
+.device .actions button:disabled{opacity:.6}
+.device[data-on="true"] .pill.on{box-shadow:0 0 0 3px #e6efdd}
+.settings-dirty{color:#6c5826;font-size:12px;margin:12px 0 0}
+@media(prefers-reduced-motion:no-preference){
+ .view:not([hidden]){animation:view-arrive .32s var(--motion-ease) both}
+ .view:not([hidden]) .hero-visual{animation:photo-arrive .55s var(--motion-ease) both}
+ button,.hero-action,.sidebar nav a,.metric,.device{transition:transform .18s var(--motion-ease),background-color .18s,border-color .18s}
+ button:not(:disabled):active,.hero-action:active{transform:scale(.97)}
+ .sidebar nav a:active{transform:scale(.96)}
+ #toast:not(:empty){animation:toast-arrive .22s var(--motion-ease) both}
+ .device[data-on="true"] .device-icon{animation:state-arrive .42s var(--motion-ease) both}
+ @media(hover:hover) and (pointer:fine){
+  .metric:hover{transform:translateY(-3px)}
+  .hero-action:hover{transform:translateY(-2px)}
+ }
+}
+@keyframes view-arrive{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+@keyframes photo-arrive{from{opacity:.65;transform:translateY(5px)}to{opacity:1;transform:none}}
+@keyframes toast-arrive{from{opacity:0;transform:translateY(9px)}to{opacity:1;transform:none}}
+@keyframes state-arrive{0%{transform:scale(.9)}60%{transform:scale(1.08)}100%{transform:scale(1)}}
+@media(max-width:840px){.card,.metric,.hero-content{backdrop-filter:none}.metric-history{right:8px;top:8px}.metric:last-child .metric-history{position:static;grid-column:4}.metric:last-child{grid-template-columns:36px 1fr auto 44px;gap:7px}.metric:last-child .metric-history{width:44px;min-height:44px}.metric:last-child .value{font-size:26px}}
+@media(max-width:360px){.metric:last-child{grid-template-columns:30px 1fr auto 44px;gap:4px}.metric:last-child .value{font-size:23px}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
